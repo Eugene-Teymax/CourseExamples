@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="index.css">
+  <title>Lesson 1</title>
+</head>
+<body class="main">
+  <a name="top"></a>
+  <header class="header">
+    <div id="logo" class="logo">
+      <a href="#top">
+        <img
+          src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Simbolo_konoha.svg/1200px-Simbolo_konoha.svg.png"
+          alt="Teymax courses"
+          title="Hello traveler!!"
+          class="logo__image"
+        />
+      </a>
+    </div>
+
+    <nav class="menu-nav">
+      <ul id="" class="menu-nav__list">
+        <li class="menu-nav__list__item">
+
+          <a href="#top">Home</a>
+        </li>
+        <li class="menu-nav__list__item">
+          <a href="#about">About</a>
+        </li>
+        <li class="menu-nav__list__item">
+          <a href="#contact">Contact Us</a>
+        </li>
+      </ul>
+    </nav>
+  </header>
+  <section id="home" class="section section-home">
+    <div class="section__content">
+      <h1 class="title">Home</h1>
+      <p>
+        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Alias, in non. Odio voluptatem modi iusto. Corporis corrupti rerum saepe minima.
+      </p>
+    </div>
+  </section>
+  <section id="about" class="section section-about">
+    <div class="section__content">
+      <a name="about"><h1 class="title">About</h1></a>
+      <p>
+        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nam, esse molestias consequuntur hic in consequatur expedita atque necessitatibus, rerum fuga veritatis animi quidem odio delectus laboriosam libero ipsa unde ex perferendis exercitationem dolore obcaecati ipsam earum quibusdam. Cum, dolor at animi minima natus necessitatibus perspiciatis fugiat est laborum, qui facilis recusandae impedit laboriosam tempora porro sit vero temporibus harum veniam eligendi facere maxime! Sunt illum veritatis unde iste atque modi distinctio quod alias consectetur minima blanditiis a consequuntur ipsa perspiciatis quis nisi, voluptate culpa amet saepe aspernatur totam tempore dolore ullam libero? Cupiditate odio doloremque omnis asperiores ab nobis dicta?
+      </p>
+      <div class="employees">
+        <p class="employees__title">Our employees. Here they are from left to right</p>
+        <div class="employees__workspace">
+          <img
+            src="https://media.istockphoto.com/photos/indian-young-people-showing-thumbs-up-in-call-center-picture-id506760598"
+            alt="Call Center Employee"
+            class="employees__workspace__img"
+          >
+          <img
+            src="https://media.istockphoto.com/photos/indian-young-people-showing-thumbs-up-in-call-center-picture-id506760598"
+            alt="Call Center Employee"
+            class="employees__workspace__img"
+          >
+          <img
+            src="https://media.istockphoto.com/photos/indian-young-people-showing-thumbs-up-in-call-center-picture-id506760598"
+            alt="Call Center Employee"
+            class="employees__workspace__img"
+          >
+          <img
+            src="https://media.istockphoto.com/photos/indian-young-people-showing-thumbs-up-in-call-center-picture-id506760598"
+            alt="Call Center Employee"
+            class="employees__workspace__img"
+          >
+          <img
+            src="https://media.istockphoto.com/photos/indian-young-people-showing-thumbs-up-in-call-center-picture-id506760598"
+            alt="Call Center Employee"
+            class="employees__workspace__img"
+          >
+          <img
+            src="https://media.istockphoto.com/photos/indian-young-people-showing-thumbs-up-in-call-center-picture-id506760598"
+            alt="Call Center Employee"
+            class="employees__workspace__img"
+          >
+          <img
+            src="https://media.istockphoto.com/photos/indian-young-people-showing-thumbs-up-in-call-center-picture-id506760598"
+            alt="Call Center Employee"
+            class="employees__workspace__img"
+          >
+          <img
+            src="https://media.istockphoto.com/photos/indian-young-people-showing-thumbs-up-in-call-center-picture-id506760598"
+            alt="Call Center Employee"
+            class="employees__workspace__img"
+          >
+          <img
+            src="https://media.istockphoto.com/photos/indian-young-people-showing-thumbs-up-in-call-center-picture-id506760598"
+            alt="Call Center Employee"
+            class="employees__workspace__img"
+          >
+          <img
+            src="https://media.istockphoto.com/photos/indian-young-people-showing-thumbs-up-in-call-center-picture-id506760598"
+            alt="Call Center Employee"
+            class="employees__workspace__img"
+          >
+        </div>
+      </div>
+    </div>
+  </section>
+  <section id="contact" class="section section-contact">
+    <div class="section__content">
+      <a name="contact"><h1 class="title">Contact Us</h1></a>
+      <form class="form" oninput="ageValue.value=parseInt(age.value)">
+        <div class="form__field">
+          <label for="fname">First name:</label>
+          <input type="text" id="fname" name="fname">
+        </div>
+        <div class="form__field">
+          <label for="lname">Last name:</label>
+          <input type="text" id="lname" name="lname">
+        </div>
+        <div class="form__field">
+          <label for="email">Email:</label>
+          <input type="email" id="email" name="email">
+        </div>
+        <div class="form__field">
+          <label for="age">Age:</label>
+          <div>
+            <input type="range" id="age" name="age" min="18" max="70">
+            <output name="ageValue">18</output>
+          </div>
+        </div>
+        <div>
+          <input type="checkbox" id="virgin" name="virgin" checked>
+          <label for="virgin">Agree</label>
+        </div>
+        <div class="form__actions">
+          <input type="submit" value="send">
+        </div>
+      </form>
+    </div>
+  </section>
+  <footer id="footer" class="footer">
+    Teymax
+  </footer>
+  <script src="index.js"></script>
+</body>
+</html>
