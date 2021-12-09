@@ -1,0 +1,15 @@
+@import url(./dropzone.css);
+@import url(./loader.css);
+
+body {
+  background-color: #fafafa;
+  border-radius: 10px;
+  padding: 20px;
+}
+
+.upload-btn {
+  display: none;
+}
+.upload-btn.active {
+  display: block;
+}
