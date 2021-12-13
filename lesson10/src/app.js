@@ -1,12 +1,23 @@
 import 'regenerator-runtime/runtime';
 import * as helpers from './utils/helpers.js'
-// import photosService from './services/photos'
 import filesService from './services/files'
-import Dropzone from './components/dropzone'
-import Loader from './components/loader'
+import definePhotosSection from './components/photos'
+import createDropzone from './components/dropzone'
+import createLoader from './components/loader'
 
+
+// const gotLocation = (position) => {
+//   console.log(position)
+//   const lat = position.coords.latitude
+//   const lon = position.coords.longitude
+//   const apiURL = ''
+  
+// }
+
+// const navigator = window.navigator.geolocation.getCurrentPosition(gotLocation)
 
 const uploadButton = document.getElementById('uploadButton')
+const loaderSlot = document.getElementById('loaderSlot')
 const dropzoneSlot = document.getElementById('dropzoneSlot')
 const imagesContainer = document.getElementById('imagesContainer')
 
@@ -18,25 +29,14 @@ const clearHandler = () => {
   uploadButton.classList.remove('active')
 }
 
-const loader = new Loader('#loaderSlot')
+const loader = createLoader(loaderSlot)
 
-const dropzone = new Dropzone(dropzoneSlot, {
+const dropzone = createDropzone(dropzoneSlot, {
   onChooseFileCallback: dropHandler,
   onClearCallback: clearHandler
 })
 
-// const insertImages = async () => {
-//   const { data } = await photosService.getPhotos(0, 8)
-
-//   const html = data.reduce((acc, img) => {
-//     const imgCardHTML = helpers.generateImageCard(img)
-//     acc += imgCardHTML
-//     return acc
-//   }, '')
-//   imagesContainer.innerHTML = html
-// }
-
-// insertImages()
+definePhotosSection('#imagesContainer', { pagination: true })
 
 const uploadButtonClick = async () => {
   loader.show()

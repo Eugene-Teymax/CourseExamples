@@ -3,7 +3,7 @@ import instance from '../core'
 const resource = '/photos'
 
 export default {
-  getPhotos (start = null, limit = null) {
+  getPhotos (start = null, limit = 3) {
     const hasStart = start !== null && start !== undefined
     const hasLimit = limit !== null && limit !== undefined
 

@@ -1,47 +1,60 @@
 import { isFunction } from './helpers'
 
-export const mountHTMLMixin = {
-  isCorrectPosition (position) {
-    return ['beforebegin', 'afterbegin', 'beforeend', 'afterend'].includes(position)
-  },
-  mount () {
-    const isInsertCallbackFunction = isFunction(this.options.insertCallback)
-    if (isInsertCallbackFunction) {
-      if (this.options.insertCallback.length === 0) {
-        throw new Error('At least one argument is expected in the insertCallback function')
-      }
-      this.options.insertCallback(this.element)
-      return
+export const mountHTMLMixin = ({ slot, element, options }) => {
+
+  const defaultPositions = ['beforebegin', 'afterbegin', 'beforeend', 'afterend']
+
+  const isCorrectPosition = (position) => {
+    return defaultPositions.includes(position)
+  }
+  
+  const defaultMount = (slot, element) => {
+    slot.insertAdjacentElement('beforeend', element)
+  }
+  
+
+  let isInsertCallback = false
+
+  const isInsertCallbackFunction = isFunction(options.insertCallback)
+  if (isInsertCallbackFunction) {
+    if (options.insertCallback.length === 0) {
+      throw new Error('At least one argument is expected in the insertCallback function')
     }
-    if (this.slot) {
-      if (typeof this.slot !== 'string') {
-        const notHTML = !(this.slot instanceof HTMLElement)
-        switch (true) {
-          case notHTML: throw new TypeError('Slot is not a selector or html element')
-        }
-      } else {
-        const selector = document.querySelector(this.slot)
-        if (!selector) {
-          throw new Error(`An element by the passed selector "${selector}" was not found`)
-        }
-        this.slot = selector
+    isInsertCallback = true
+    options.insertCallback(element)
+
+  }
+  if (slot) {
+    if (typeof slot !== 'string') {
+      const notHTML = !(slot instanceof HTMLElement)
+      switch (true) {
+        case notHTML: throw new TypeError('Slot is not a selector or html element')
       }
-      if (this.options.replace) {
-        this.slot.replaceWith(this.element)
-        return
+    } else {
+      const selector = document.querySelector(slot)
+      if (!selector) {
+        throw new Error(`An element by the passed selector "${selector}" was not found`)
       }
-      const correctPosition = this.isCorrectPosition(this.options.nodePosition)
-      if (correctPosition) {
-        const insertFn = 'insertAdjacentElement'
-        const insertArgs = [this.options.nodePosition, this.element]
-        this.slot[insertFn].apply(this.slot, insertArgs)
-      } else {
-        console.warn(`Position "${this.options.nodePosition}" is not correct, maybe you meant one of these "${this.defaultPositions.join(', ')}"?`)
-        this.defaultMount(this.slot, this.element)
-      }
+      slot = selector
     }
-  },
-  defaultMount () {
-    this.slot.insertAdjacentElement('beforeend', this.element)
+    if (isInsertCallback) {
+      return slot
+    }
+
+    if (options.replace) {
+      slot.replaceWith(element)
+      return slot
+    }
+
+    const correctPosition = isCorrectPosition(options.nodePosition)
+    if (correctPosition) {
+      const insertFn = 'insertAdjacentElement'
+      const insertArgs = [options.nodePosition, element]
+      slot[insertFn].apply(slot, insertArgs)
+    } else {
+      console.warn(`Position "${options.nodePosition}" is not correct, maybe you meant one of these "${defaultPositions.join(', ')}"?`)
+      defaultMount(slot, element)
+    }
+    return slot
   }
 }

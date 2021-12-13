@@ -3,9 +3,57 @@ export const repeatRequestUntilDataIsReceived = async ({
   tries = 10,
   timeout = 500,
   previousResult,
-  checkProperty = 'attachmentURL'
+  chainOfCheckProperties = ['attachmentURL']
 }, ...requestArguments) => {
- 
+  const wait = (timeInMs) => {
+    return new Promise(resolve => setTimeout(resolve, timeInMs))
+  }
+
+  const check = (dataToCheck) => {
+    let data = dataToCheck
+
+    chainOfCheckProperties.forEach(key => {
+      data = data[key]
+    })
+
+    return previousResult !== undefined ?
+      data !== previousResult : !!data
+  }
+
+  const tryRequest = async (numberOfTries) => {
+    if (numberOfTries <= 0) {
+      throw 'out of tries'
+    }
+
+    let data
+
+    try {
+      const { data: requestData } = await request(...requestArguments)
+      data = requestData
+    } catch (err) {
+      throw err
+    }
+
+    const isRecieved = check(data)
+
+    if (isRecieved) {
+      return data
+    } else {
+      await wait(timeout)
+      console.log(`request try #${tries - numberOfTries + 1}`)
+      try {
+        return await tryRequest(numberOfTries - 1)
+      } catch (err) {
+        throw err
+      }
+    }
+  }
+
+  try {
+    return await tryRequest(tries - 1)
+  } catch (err) {
+    throw err
+  }
 }
 
 export const generateCard = ({ name, createdAt, size, attachmentURL }) => {
@@ -35,13 +83,11 @@ export const generateCard = ({ name, createdAt, size, attachmentURL }) => {
 
 export const generateImageCard = ({ url, title, albumId, id }) => {
   return `
-    <div class="col-3 mb-2">
-      <div class="card" id="photo_${id}" style="width: 18rem;">
-        <img class="card-img-top" src="${url}" alt="Card image cap" style="width: 100%; height: 150px;">
-        <div class="card-body">
-          <h5 class="card-title">album id #${albumId} - #${id}</h5>
-          <p class="card-text">${title}</p>
-        </div>
+    <div class="card mb-3" id="photo_${id}" style="width: 18rem;">
+      <img class="card-img-top" src="${url}" alt="Card image cap" style="width: 100%; height: 150px;">
+      <div class="card-body">
+        <h5 class="card-title">album id #${albumId} - #${id}</h5>
+        <p class="card-text">${title}</p>
       </div>
     </div>
   `
